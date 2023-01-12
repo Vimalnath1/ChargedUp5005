@@ -18,5 +18,8 @@ public final class Constants {
     public static final int rightfrontnumber = 1;
     public static final int leftbacknumber = 2;
     public static final int rightbacknumber = 3;
+    public static final int armmotornumber = 4;
+    public static final int clawmotornumber = 5;
+    public static final int climbermotornumber = 0;
 
 }
