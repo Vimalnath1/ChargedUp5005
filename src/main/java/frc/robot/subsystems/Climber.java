@@ -4,20 +4,24 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
-  Spark climbermotor;
+  CANSparkMax climbermotor;
+  RelativeEncoder climberEncoder;
   /** Creates a new Climber. */
   public Climber() {
-    climbermotor=new Spark(Constants.climbermotornumber);
+    climbermotor=new CANSparkMax(Constants.climbermotornumber,MotorType.kBrushless);
+    climberEncoder=climbermotor.getEncoder();
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per sc++heduler run
   }
 
   public void climb(double speed){

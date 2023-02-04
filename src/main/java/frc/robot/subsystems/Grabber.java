@@ -5,16 +5,21 @@
 package frc.robot.subsystems;
 
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Grabber extends SubsystemBase {
-  Spark armmotor;
+  CANSparkMax armmotor;
+  Spark armmotor2;
   Spark clawmotor;
   /** Creates a new Grabber. */
   public Grabber() {
-    armmotor= new Spark(Constants.armmotornumber);
+    armmotor= new CANSparkMax(8,MotorType.kBrushless);
+    armmotor2= new Spark(Constants.armmotornumber2);
     clawmotor=new Spark(Constants.clawmotornumber);
   }
 
@@ -24,6 +29,7 @@ public class Grabber extends SubsystemBase {
   }
   public void liftarm(double speed){
     armmotor.set(speed);
+    //armmotor2.set(-speed);
   }
   public void grab(double speed){
     clawmotor.set(speed);

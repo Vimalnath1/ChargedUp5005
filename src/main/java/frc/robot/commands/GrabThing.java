@@ -9,9 +9,11 @@ import frc.robot.subsystems.Grabber;
 
 public class GrabThing extends CommandBase {
   private Grabber grabber;
+  double Speed;
   /** Creates a new GrabThing. */
-  public GrabThing(Grabber subsystem) {
+  public GrabThing(Grabber subsystem,double speed) {
     grabber=subsystem;
+    Speed=speed;
     addRequirements(grabber);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,7 +25,7 @@ public class GrabThing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    grabber.grab(0.75);
+    grabber.grab(Speed);
   }
 
   // Called once the command ends or is interrupted.

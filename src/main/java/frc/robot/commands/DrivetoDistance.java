@@ -4,21 +4,16 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class DefaultDrive extends CommandBase {
-  private final DriveTrain drivetrain;
-  public final DoubleSupplier leftvalue;
-  public final DoubleSupplier rightvalue;
-  /** Creates a new DefaultDrive. */
-  public DefaultDrive(DriveTrain subsystem,DoubleSupplier left,DoubleSupplier right) {
+public class DrivetoDistance extends CommandBase {
+  /** Creates a new DrivetoDistance. */
+  DriveTrain drivetrain;
+  double distance;
+  public DrivetoDistance(DriveTrain subsystem,double feet) {
     drivetrain=subsystem;
-    leftvalue=left;
-    rightvalue=right;
+    distance=feet;
     addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,8 +25,7 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble());
-    //SmartDashboard.putNumber("Left Front Encoder", DriveTrain.leftEncoder1.getPosition());
+    drivetrain.drivedistance(distance);
   }
 
   // Called once the command ends or is interrupted.

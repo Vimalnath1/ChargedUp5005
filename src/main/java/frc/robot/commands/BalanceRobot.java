@@ -4,34 +4,41 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.ADIS16470_IMU;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.*;
 
-public class DefaultDrive extends CommandBase {
+public class BalanceRobot extends CommandBase {
   private final DriveTrain drivetrain;
-  public final DoubleSupplier leftvalue;
-  public final DoubleSupplier rightvalue;
-  /** Creates a new DefaultDrive. */
-  public DefaultDrive(DriveTrain subsystem,DoubleSupplier left,DoubleSupplier right) {
+  private final RobotGyro gyro;
+  private double angle;
+  /** Creates a new BalanceRobot. */
+  public BalanceRobot(DriveTrain subsystem, RobotGyro gyrosubsystem) {
     drivetrain=subsystem;
-    leftvalue=left;
-    rightvalue=right;
-    addRequirements(drivetrain);
+    gyro=gyrosubsystem;
+    addRequirements(drivetrain,gyro);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    gyro.ResetGyro();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble());
-    //SmartDashboard.putNumber("Left Front Encoder", DriveTrain.leftEncoder1.getPosition());
+    angle=gyro.getrobotAngle();
+    /*if (angle<0){
+      drivetrain.turnanddrive(0.5, 0.5);
+      angle=gyro.getrobotAngle();
+    }
+    else if (angle>0){
+      drivetrain.turnanddrive(-0.5, -0.5);
+      angle=gyro.getrobotAngle();
+    }*/
   }
 
   // Called once the command ends or is interrupted.
