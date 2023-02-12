@@ -58,7 +58,7 @@ public class LineUpforCone extends CommandBase {
       SmartDashboard.putNumber("tx", y);
       steering_adjust = Kpadjust * x;
       if (x>1.0 && x<-1.0){
-        //drivetrain.turnanddrive(steering_adjust, steering_adjust);
+        drivetrain.turnanddrive(steering_adjust, steering_adjust);
       }
       if (x<1.0 && x>-1.0){
         //distance=getDistancefromPole(10,15,32,ty); //Bogus values,change later

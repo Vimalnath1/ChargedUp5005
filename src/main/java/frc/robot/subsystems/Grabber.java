@@ -18,9 +18,8 @@ public class Grabber extends SubsystemBase {
   Spark clawmotor;
   /** Creates a new Grabber. */
   public Grabber() {
-    armmotor= new CANSparkMax(8,MotorType.kBrushless);
-    armmotor2= new Spark(Constants.armmotornumber2);
-    clawmotor=new Spark(Constants.clawmotornumber);
+    armmotor= new CANSparkMax(2,MotorType.kBrushless);
+    clawmotor=new Spark(0);
   }
 
   @Override
@@ -29,7 +28,6 @@ public class Grabber extends SubsystemBase {
   }
   public void liftarm(double speed){
     armmotor.set(speed);
-    //armmotor2.set(-speed);
   }
   public void grab(double speed){
     clawmotor.set(speed);

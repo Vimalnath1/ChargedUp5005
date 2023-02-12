@@ -12,11 +12,11 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
   CANSparkMax climbermotor;
-  RelativeEncoder climberEncoder;
+  //RelativeEncoder climberEncoder;
   /** Creates a new Climber. */
   public Climber() {
     climbermotor=new CANSparkMax(Constants.climbermotornumber,MotorType.kBrushless);
-    climberEncoder=climbermotor.getEncoder();
+    //climberEncoder=climbermotor.getEncoder();
   }
 
   @Override

@@ -42,10 +42,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(controller, 5).onTrue(new LiftArm(m_grabber, -0.5));
-    new JoystickButton(controller, 3).onTrue(new LiftArm(m_grabber, 0.5));
+    new JoystickButton(controller, 5).whileTrue(new LiftArm(m_grabber, -1));
+    new JoystickButton(controller, 3).whileTrue(new LiftArm(m_grabber, 1));
     new JoystickButton(controller, 1).whileTrue(new GrabThing(m_grabber,0.75));
-    new JoystickButton(controller, 12).whileTrue(new GrabThing(m_grabber,-0.75));
+    new JoystickButton(controller, 12).onFalse(new GrabThing(m_grabber,-0.75));
     new JoystickButton(controller, 7).whileTrue(new RobotClimb(m_climber, 1));
     new JoystickButton(controller, 9).whileTrue(new RobotClimb(m_climber, -1));
     new JoystickButton(controller, 6).whileTrue(new BalanceRobot(m_DriveTrain, m_gyro));
