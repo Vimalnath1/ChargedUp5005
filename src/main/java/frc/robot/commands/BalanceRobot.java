@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
 
@@ -24,6 +25,7 @@ public class BalanceRobot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+  
     gyro.ResetGyro();
   }
 
@@ -31,12 +33,13 @@ public class BalanceRobot extends CommandBase {
   @Override
   public void execute() {
     angle=gyro.getrobotAngle();
+    SmartDashboard.putNumber("Angle", angle);
     /*if (angle<0){
-      drivetrain.turnanddrive(0.5, 0.5);
+      drivetrain.tankdrive(0.2, -0.2);
       angle=gyro.getrobotAngle();
     }
     else if (angle>0){
-      drivetrain.turnanddrive(-0.5, -0.5);
+      drivetrain.tankdrive(-0.2, 0.2);
       angle=gyro.getrobotAngle();
     }*/
   }

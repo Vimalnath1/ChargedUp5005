@@ -20,8 +20,8 @@ public class LineUpforCube extends CommandBase {
    PIDController pidController;
    double targetVisible;
    double Kpadjust = 0.02; //Subject to change
-   double Kiadjust=0.0075;
-   double Kdadjust=0.01;
+   double Kiadjust=0.01;
+   double Kdadjust=0.02;
    double steering_adjust=0.0;
    double distance=0.0;
    double desired_distance; //This will be whatever we decide to be the distance we have to be in order to reach the pole
@@ -73,12 +73,13 @@ public class LineUpforCube extends CommandBase {
       pidController.setIntegratorRange(-1, 1);
       steering_adjust=pidController.calculate(x);
       //SmartDashboard.putNumber("Ki", Kiadjust*errorsum);
+      //SmartDashboard.putNumber("Steering Adjust", steering_adjust);
       SmartDashboard.putNumber("Steering Adjust", steering_adjust);
       if (x>1.0 || x<-1.0){
         drivetrain.turn(-steering_adjust);
       }
-      if (x<1.0 || x>-1.0){
-        distance=getDistancefromPole(9,33.31,19,y); //Bogus values,change later
+      if (x<1.0 && x>-1.0){
+        distance=getDistancefromPole(9,14.25,19,y); //Change the first and third values
         SmartDashboard.putNumber("distance", distance);
         distance_error=desired_distance-distance;
       }

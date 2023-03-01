@@ -43,13 +43,13 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(controller, 5).whileTrue(new LiftArm(m_grabber, -1));
-    new JoystickButton(controller, 3).whileTrue(new LiftArm(m_grabber, 1));
-    new JoystickButton(controller, 1).whileTrue(new GrabThing(m_grabber,0.75));
-    new JoystickButton(controller, 12).onFalse(new GrabThing(m_grabber,-0.75));
-    new JoystickButton(controller, 7).whileTrue(new RobotClimb(m_climber, 1));
-    new JoystickButton(controller, 9).whileTrue(new RobotClimb(m_climber, -1));
+    new JoystickButton(controller, 3).whileTrue(new LiftArm(m_grabber,0.25));
+    new JoystickButton(controller, 1).whileTrue(new GrabThing(m_grabber,-0.75));
+    new JoystickButton(controller, 12).onTrue(new ReleaseGrabber(m_grabber));
+    new JoystickButton(controller, 7).whileTrue(new RobotClimb(m_climber, -1));
+    new JoystickButton(controller, 9).whileTrue(new RobotClimb(m_climber, 1));
     new JoystickButton(controller, 6).whileTrue(new BalanceRobot(m_DriveTrain, m_gyro));
-    new JoystickButton(controller, 10).onTrue(new DrivetoDistance(m_DriveTrain, 5.0));
+    new JoystickButton(controller, 10).whileTrue(new DrivetoDistance(m_DriveTrain, 3.0));
     new JoystickButton(controller, 4).whileTrue(new LineUpforCone(m_DriveTrain));
     new JoystickButton(controller, 2).whileTrue(new LineUpforCube(m_DriveTrain));
   }

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -15,8 +16,11 @@ public class LineUpforCone extends CommandBase {
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   /** Creates a new LineUpforCone. */
    DriveTrain drivetrain;
+   PIDController pidController;
    double targetVisible;
-   double Kpadjust = 0.1; //Subject to change
+   double Kpadjust = 0.01; //Subject to change
+   double Kiadjust=0.0;
+   double Kdadjust=0.2;
    double steering_adjust=0.0;
    double distance=0.0;
    double desired_distance; //This will be whatever we decide to be the distance we have to be in order to reach the pole
@@ -28,6 +32,7 @@ public class LineUpforCone extends CommandBase {
   public LineUpforCone(DriveTrain subsystem) {
     drivetrain=subsystem;
     addRequirements(drivetrain);
+    pidController=new PIDController(Kpadjust, Kiadjust, Kdadjust);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -42,34 +47,51 @@ public class LineUpforCone extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+    Update_Limelight();
+  }
+
+
+  public void Update_Limelight(){
     targetVisible=NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0.0);
-    //if (targetVisible<1.0){       
-      //steering_adjust=0.2;
+    if (targetVisible<1.0){       
+      //steering_adjust=0.31;
       //drivetrain.turnanddrive(steering_adjust, steering_adjust);
-      SmartDashboard.putNumber("tv", targetVisible);
-      //}
-    //else{
-      tx=table.getEntry("tx"); 
+      }
+    else{
+      
+      //dt=Timer.getFPGATimestamp()-time;
+      tx=table.getEntry("tx");
       ty=table.getEntry("ty");
       x=tx.getDouble(0.0);
       y=ty.getDouble(0.0);
-      SmartDashboard.putNumber("ty", x);
+      SmartDashboard.putNumber("ty", y);
       //System.out.println(x); 
-      SmartDashboard.putNumber("tx", y);
-      steering_adjust = Kpadjust * x;
-      if (x>1.0 && x<-1.0){
-        drivetrain.turnanddrive(steering_adjust, steering_adjust);
+      SmartDashboard.putNumber("tx", x); 
+      //errorsum=x*dt;
+      //steering_adjust = Kpadjust * x+ Kiadjust*errorsum;
+      pidController.setIntegratorRange(-1, 1);
+      steering_adjust=pidController.calculate(x);
+      //SmartDashboard.putNumber("Ki", Kiadjust*errorsum);
+      //SmartDashboard.putNumber("Steering Adjust", steering_adjust);
+      if (steering_adjust<0.3 && steering_adjust>0){
+        steering_adjust+=0.3;
       }
-      if (x<1.0 && x>-1.0){
-        //distance=getDistancefromPole(10,15,32,ty); //Bogus values,change later
-        //distance_error=desired_distance-distance;
+      if (steering_adjust>-0.3 && steering_adjust<0){
+        steering_adjust-=0.3;
       }
-    drivetrain.drivedistance(distance_error);
+      SmartDashboard.putNumber("Steering Adjust", steering_adjust);
+      if (x>1.0 || x<-1.0){
+        drivetrain.turn(-steering_adjust);
+      }
+      if (x<1.0 || x>-1.0){
+        distance=getDistancefromPole(9,14.25,19,y); //Change values
+        SmartDashboard.putNumber("distance", distance);
+        distance_error=desired_distance-distance;
+      }
+      }
   }
 
-  public void Update_Limelight(){
-    
-      }
   //}
 
   public double getDistancefromPole(double heightOfLimelight, double heightOfGoal, double angleOfLimelight,double yOffset){

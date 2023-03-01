@@ -14,11 +14,15 @@ public class RobotGyro extends SubsystemBase {
 
   @Override
   public void periodic() {
+
     // This method will be called once per scheduler run
   }
   
   public double getrobotAngle(){
-    return gyro.getYComplementaryAngle();
+    return gyro.getXComplementaryAngle();
+  }
+  public double getyaw(){
+    return gyro.getAngle();
   }
 
   public void ResetGyro(){

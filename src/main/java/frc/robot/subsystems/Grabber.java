@@ -14,12 +14,13 @@ import frc.robot.Constants;
 
 public class Grabber extends SubsystemBase {
   CANSparkMax armmotor;
-  Spark armmotor2;
-  Spark clawmotor;
+  Spark clawmotor1;
+  Spark clawmotor2;
   /** Creates a new Grabber. */
   public Grabber() {
-    armmotor= new CANSparkMax(2,MotorType.kBrushless);
-    clawmotor=new Spark(0);
+    armmotor= new CANSparkMax(5,MotorType.kBrushless);
+    clawmotor1=new Spark(8);
+    clawmotor2=new Spark(9);
   }
 
   @Override
@@ -30,6 +31,7 @@ public class Grabber extends SubsystemBase {
     armmotor.set(speed);
   }
   public void grab(double speed){
-    clawmotor.set(speed);
+    clawmotor1.set(speed);
+    clawmotor2.set(-speed);
   }
 }

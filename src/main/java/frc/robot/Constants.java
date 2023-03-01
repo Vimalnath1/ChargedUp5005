@@ -15,11 +15,11 @@ package frc.robot;
 public final class Constants {
 
     public static final int leftfrontnumber = 1;
-    public static final int rightfrontnumber = 3;
+    public static final int rightfrontnumber = 8;
     public static final int leftbacknumber = 4;
-    public static final int rightbacknumber = 1;
-    public static final int armmotornumber = 2;
+    public static final int rightbacknumber = 2;
+    public static final int armmotornumber = 3;
     public static final int clawmotornumber = 5;
-    public static final int climbermotornumber = 8;
+    public static final int climbermotornumber = 3;
 
 }
