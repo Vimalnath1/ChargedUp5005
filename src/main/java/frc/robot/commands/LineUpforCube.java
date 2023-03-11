@@ -76,7 +76,7 @@ public class LineUpforCube extends CommandBase {
       //SmartDashboard.putNumber("Steering Adjust", steering_adjust);
       SmartDashboard.putNumber("Steering Adjust", steering_adjust);
       if (x>1.0 || x<-1.0){
-        drivetrain.turn(-steering_adjust);
+       // drivetrain.turn(-steering_adjust);
       }
       if (x<1.0 && x>-1.0){
         distance=getDistancefromPole(9,14.25,19,y); //Change the first and third values
@@ -94,7 +94,7 @@ public class LineUpforCube extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.turnanddrive(0, 0);
+    drivetrain.turnanddrive(0, 0,0,0,0);
   }
 
   // Returns true when the command should end.

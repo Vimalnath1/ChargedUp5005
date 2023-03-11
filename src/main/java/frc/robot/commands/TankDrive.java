@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Grabber;
+import frc.robot.subsystems.DriveTrain;
 
-public class LiftArm extends CommandBase {
-  private Grabber grabber;
-  private double speed;
-  /** Creates a new LiftArm. */
-  public LiftArm(Grabber subsystem, double Speed) {
-    grabber=subsystem;
-    speed=Speed;
-    addRequirements(grabber);
+public class TankDrive extends CommandBase {
+  /** Creates a new TankDrive. */
+  DriveTrain drivetrain;
+  double Speed;
+  public TankDrive(DriveTrain subsystem, double speed) {
+    drivetrain=subsystem;
+    Speed=speed;
+    addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,14 +25,12 @@ public class LiftArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    grabber.liftarm(speed);
+    drivetrain.tankdrive(Speed, -Speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    grabber.liftarm(-0.05);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

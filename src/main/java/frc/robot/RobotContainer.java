@@ -28,11 +28,18 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   public static Joystick controller= new Joystick(0);
+  public static boolean reverse=false;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    m_DriveTrain.setDefaultCommand(new DefaultDrive(m_DriveTrain, ()->controller.getRawAxis(0), ()->controller.getRawAxis(1)));
+    //if (reverse==true){
+      //m_DriveTrain.setDefaultCommand(new DefaultDrive(m_DriveTrain, ()->-controller.getRawAxis(0), ()->-controller.getRawAxis(1),()->-controller.getRawAxis(2),()->-controller.getRawAxis(3)));
+    //}
+    //else{
+      m_DriveTrain.setDefaultCommand(new DefaultDrive(m_DriveTrain, ()->controller.getRawAxis(0), ()->controller.getRawAxis(1),()->controller.getRawAxis(2),()->controller.getRawAxis(3)));
+    //}
+    //m_DriveTrain.setDefaultCommand(new DefaultDrive(m_DriveTrain, ()->controller.getRawAxis(0), ()->controller.getRawAxis(1),()->controller.getRawAxis(2),()->controller.getRawAxis(3)));
   }
 
   /**
@@ -42,16 +49,19 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(controller, 5).whileTrue(new LiftArm(m_grabber, -1));
+    new JoystickButton(controller, 5).whileTrue(new LiftArm(m_grabber, -0.25));
     new JoystickButton(controller, 3).whileTrue(new LiftArm(m_grabber,0.25));
     new JoystickButton(controller, 1).whileTrue(new GrabThing(m_grabber,-0.75));
-    new JoystickButton(controller, 12).onTrue(new ReleaseGrabber(m_grabber));
-    new JoystickButton(controller, 7).whileTrue(new RobotClimb(m_climber, -1));
-    new JoystickButton(controller, 9).whileTrue(new RobotClimb(m_climber, 1));
+    new JoystickButton(controller, 12).whileTrue(new GrabThing(m_grabber,0.75));
+    new JoystickButton(controller, 7).whileTrue(new RobotClimb(m_climber, -0.5));
+    new JoystickButton(controller, 9).whileTrue(new RobotClimb(m_climber, 0.5));
     new JoystickButton(controller, 6).whileTrue(new BalanceRobot(m_DriveTrain, m_gyro));
     new JoystickButton(controller, 10).whileTrue(new DrivetoDistance(m_DriveTrain, 3.0));
     new JoystickButton(controller, 4).whileTrue(new LineUpforCone(m_DriveTrain));
     new JoystickButton(controller, 2).whileTrue(new LineUpforCube(m_DriveTrain));
+    //new JoystickButton(controller, 11).whileTrue(new DropArmandClimb(m_climber,m_grabber, -0.2, 0.2));
+    new JoystickButton(controller, 8).whileTrue(new TurboButton(m_DriveTrain));
+    new JoystickButton(controller,11).whileTrue(new Reverse());
   }
 
 

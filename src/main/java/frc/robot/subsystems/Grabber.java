@@ -20,7 +20,7 @@ public class Grabber extends SubsystemBase {
   public Grabber() {
     armmotor= new CANSparkMax(5,MotorType.kBrushless);
     clawmotor1=new Spark(8);
-    clawmotor2=new Spark(9);
+    clawmotor2=new Spark(7);
   }
 
   @Override

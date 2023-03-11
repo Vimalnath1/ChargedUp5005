@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Grabber;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.DriveTrain;
 
-public class LiftArm extends CommandBase {
-  private Grabber grabber;
-  private double speed;
-  /** Creates a new LiftArm. */
-  public LiftArm(Grabber subsystem, double Speed) {
-    grabber=subsystem;
-    speed=Speed;
-    addRequirements(grabber);
+public class TurboButton extends CommandBase {
+  DriveTrain drivetrain;
+  /** Creates a new TurboButton. */
+  public TurboButton(DriveTrain subsystem) {
+    drivetrain=subsystem;
+    addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,13 +24,13 @@ public class LiftArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    grabber.liftarm(speed);
+    drivetrain.turnanddrive(RobotContainer.controller.getRawAxis(0),RobotContainer.controller.getRawAxis(1),1,RobotContainer.controller.getRawAxis(2),RobotContainer.controller.getRawAxis(3));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    grabber.liftarm(-0.05);
+    drivetrain.turnanddrive(0,0,0,0,0);
   }
 
   // Returns true when the command should end.

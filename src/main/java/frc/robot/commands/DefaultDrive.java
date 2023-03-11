@@ -14,11 +14,15 @@ public class DefaultDrive extends CommandBase {
   private final DriveTrain drivetrain;
   public final DoubleSupplier leftvalue;
   public final DoubleSupplier rightvalue;
+  public final DoubleSupplier turnvalue;
+  public final DoubleSupplier straightvalue;
   /** Creates a new DefaultDrive. */
-  public DefaultDrive(DriveTrain subsystem,DoubleSupplier left,DoubleSupplier right) {
+  public DefaultDrive(DriveTrain subsystem,DoubleSupplier left,DoubleSupplier right,DoubleSupplier creepturn, DoubleSupplier creepstraight) {
     drivetrain=subsystem;
     leftvalue=left;
     rightvalue=right;
+    turnvalue=creepturn;
+    straightvalue=creepstraight;
     addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,14 +34,14 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble());
+    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble(),0.4,turnvalue.getAsDouble(),straightvalue.getAsDouble());
     //SmartDashboard.putNumber("Left Front Encoder", DriveTrain.leftEncoder1.getPosition());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.turnanddrive(0, 0);
+    drivetrain.turnanddrive(0, 0,0,0,0);
     
   }
 

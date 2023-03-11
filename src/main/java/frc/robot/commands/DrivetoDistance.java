@@ -10,6 +10,7 @@ import frc.robot.subsystems.DriveTrain;
 public class DrivetoDistance extends CommandBase {
   /** Creates a new DrivetoDistance. */
   DriveTrain drivetrain;
+  
   double distance;
   public DrivetoDistance(DriveTrain subsystem,double feet) {
     drivetrain=subsystem;
@@ -20,18 +21,22 @@ public class DrivetoDistance extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    drivetrain.leftEncoder2.setPosition(0);
+    drivetrain.rightEncoder2.setPosition(0);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.drivedistance(distance);
+    drivetrain.drivedistance(distance,drivetrain.leftEncoder2,drivetrain.rightEncoder2);
+   //drivetrain.tankdrive(0.2, -0.2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.turnanddrive(0, 0);
+    drivetrain.turnanddrive(0, 0,0,0,0);
   }
 
   // Returns true when the command should end.
