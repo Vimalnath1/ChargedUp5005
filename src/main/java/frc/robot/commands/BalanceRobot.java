@@ -23,7 +23,7 @@ public class BalanceRobot extends CommandBase {
   }
 
   // Called when the command is initially scheduled.
-  @Override
+  @Override 
   public void initialize() {
   
     gyro.ResetGyro();
@@ -34,14 +34,14 @@ public class BalanceRobot extends CommandBase {
   public void execute() {
     angle=gyro.getrobotAngle();
     SmartDashboard.putNumber("Angle", angle);
-    /*if (angle<0){
-      drivetrain.tankdrive(0.2, -0.2);
-      angle=gyro.getrobotAngle();
+    if (angle<-5){
+      drivetrain.tankdrive(-0.1, 0.1);
+      //angle=gyro.getrobotAngle();
     }
-    else if (angle>0){
-      drivetrain.tankdrive(-0.2, 0.2);
-      angle=gyro.getrobotAngle();
-    }*/
+    else if (angle>5){
+      drivetrain.tankdrive(0.1, -0.1); 
+      //angle=gyro.getrobotAngle();
+    }
   }
 
   // Called once the command ends or is interrupted.

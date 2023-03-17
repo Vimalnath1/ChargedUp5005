@@ -17,7 +17,7 @@ public class ReleaseGrabber extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new GrabThing(grabber, 0.75).withTimeout(0.5)
+      new GrabThing(grabber, 0.75).withTimeout(1)
     );
   }
 }

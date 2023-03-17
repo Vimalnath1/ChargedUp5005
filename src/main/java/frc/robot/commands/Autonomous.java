@@ -17,8 +17,12 @@ public class Autonomous extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new TankDrive(drivetrain,0.2).withTimeout(2),
-      new LiftArm(grabber, -0.25).withTimeout(1)
+      //new TankDrive(drivetrain,0.2).withTimeout(2),
+      new LiftArm(grabber, 0.25).withTimeout(2.5),
+      new ReleaseGrabber(grabber),
+      new LiftArm(grabber, -0.25).withTimeout(1),
+      new TankDrive(drivetrain, -0.2).withTimeout(2)
+
       //Change and add stuff
     );
   }

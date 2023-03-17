@@ -26,7 +26,7 @@ public class RobotContainer {
   private final Climber m_climber= new Climber();
   private final RobotGyro m_gyro=new RobotGyro();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
+  private final Autonomous m_gameAutonomous=new Autonomous(m_DriveTrain, m_grabber, m_climber, m_gyro); 
   public static Joystick controller= new Joystick(0);
   public static boolean reverse=false;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -51,8 +51,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(controller, 5).whileTrue(new LiftArm(m_grabber, -0.25));
     new JoystickButton(controller, 3).whileTrue(new LiftArm(m_grabber,0.25));
-    new JoystickButton(controller, 1).whileTrue(new GrabThing(m_grabber,-0.75));
-    new JoystickButton(controller, 12).whileTrue(new GrabThing(m_grabber,0.75));
+    new JoystickButton(controller, 1).whileTrue(new GrabThing(m_grabber,0.75));
+    new JoystickButton(controller, 12).whileTrue(new GrabThing(m_grabber,-0.75));
     new JoystickButton(controller, 7).whileTrue(new RobotClimb(m_climber, -0.5));
     new JoystickButton(controller, 9).whileTrue(new RobotClimb(m_climber, 0.5));
     new JoystickButton(controller, 6).whileTrue(new BalanceRobot(m_DriveTrain, m_gyro));
@@ -72,6 +72,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_gameAutonomous;
   }
 }

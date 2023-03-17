@@ -67,7 +67,7 @@ public class DriveTrain extends SubsystemBase {
     }
     else{
       creepspeed=0.1;
-    }
+    }/*
       if (creepstraight==1){
       leftback.set(-creepspeed);
       rightback.set(creepspeed);
@@ -79,7 +79,7 @@ public class DriveTrain extends SubsystemBase {
         rightback.set(-creepspeed);
         leftfront.set(creepspeed);
         rightfront.set(-creepspeed);
-      }
+      }*/
       if (creepturn>0.6){
       leftfront.set(creepspeed);
       leftback.set(creepspeed);
@@ -92,34 +92,54 @@ public class DriveTrain extends SubsystemBase {
         rightfront.set(-creepspeed);
         rightback.set(-creepspeed);
       }
-    if (creepturn<0.6 && creepturn>-0.6 && creepstraight<1 && creepstraight>-1){
-    //if (xAxis<-0.3 || xAxis>0.3 && yAxis<0.15 && yAxis>-0.15){ Test this
-      if (xAxis>0.3){
+    if (creepturn<0.6 && creepturn>-0.6){
+    if (xAxis<-0.3 || xAxis>0.3 ){
+      /*if (xAxis>0.3){
         xAxis=0.3;
       }
       if (xAxis<-0.3){
         xAxis=-0.3;
       }
-      leftfront.set(xAxis);
+      /*leftfront.set(xAxis);
       leftback.set(xAxis);
       rightfront.set(xAxis);
-      rightback.set(xAxis);
+      rightback.set(xAxis);*/
+      if (xAxis<-0.3){
+        if (xAxis<-0.3){
+          xAxis=-0.3;
+        }
+        if (yAxis<0){
+          if (yAxis<-0.3){
+            yAxis=-0.3;
+          }
+          tankdrive(xAxis+0.05, xAxis);
+        }
+        else{
+          if (yAxis>0.3){
+            yAxis=0.3;
+          }
+          tankdrive(xAxis+0.05, -xAxis);
+        }
+      }
+      if (xAxis>0.3){
+        if (xAxis>0.3){
+          xAxis=0.3;
+        }
+        if (yAxis<0){
+          if (yAxis<-0.3){
+            yAxis=-0.3;
+          }
+          tankdrive(xAxis, xAxis+0.05);
+        }
+        else{
+          if (yAxis>0.3){
+            yAxis=0.3;
+          }
+          tankdrive(-xAxis, xAxis-0.05);
+        }
+      }
     }
     else{
-      /*if (xAxis<-0.3 || xAxis>0.3 && yAxis>0.15 || yAxis<-0.15){
-        if (xAxis<-0.5 && yAxis<-0.5){
-          tankdrive(0,yAxis);
-        }
-        if (xAxis>0.5 && yAxis<-0.5){
-          tankdrive(xAxis, 0);
-        }
-        if (xAxis<-0.5 && yAxis>0.5){           Test this stuff
-          tankdrive(0,yAxis);
-        }
-        if (xAxis>0.5 && yAxis>0.5){
-          tankdrive(-xAxis,0);
-        }
-      }*/ 
       if (yAxis>limit){
         yAxis=limit;
       }
@@ -138,6 +158,23 @@ public class DriveTrain extends SubsystemBase {
       leftfront.set(0);
       rightfront.set(0);
       }
+    }
+    /*else{
+      /*if (xAxis<-0.3 || xAxis>0.3 && yAxis>0.15 || yAxis<-0.15){
+        if (xAxis<-0.5 && yAxis<-0.5){
+          tankdrive(0,yAxis);
+        }
+        if (xAxis>0.5 && yAxis<-0.5){
+          tankdrive(xAxis, 0);
+        }
+        if (xAxis<-0.5 && yAxis>0.5){           Test this stuff
+          tankdrive(0,yAxis);
+        }
+        if (xAxis>0.5 && yAxis>0.5){
+          tankdrive(-xAxis,0);
+        }
+      }*/ 
+      
     }
   //}
   }
