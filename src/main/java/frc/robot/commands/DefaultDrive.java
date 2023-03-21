@@ -34,7 +34,7 @@ public class DefaultDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble(),0.4,turnvalue.getAsDouble(),straightvalue.getAsDouble());
+    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble(),0.3,turnvalue.getAsDouble(),straightvalue.getAsDouble());
     //SmartDashboard.putNumber("Left Front Encoder", DriveTrain.leftEncoder1.getPosition());
   }
 

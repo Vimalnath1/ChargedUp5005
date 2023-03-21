@@ -94,17 +94,17 @@ public class DriveTrain extends SubsystemBase {
       }
     if (creepturn<0.6 && creepturn>-0.6){
     if (xAxis<-0.3 || xAxis>0.3 ){
-      /*if (xAxis>0.3){
+      if (xAxis>0.3){
         xAxis=0.3;
       }
       if (xAxis<-0.3){
         xAxis=-0.3;
       }
-      /*leftfront.set(xAxis);
+      leftfront.set(xAxis);
       leftback.set(xAxis);
       rightfront.set(xAxis);
-      rightback.set(xAxis);*/
-      if (xAxis<-0.3){
+      rightback.set(xAxis);
+      /*if (xAxis<-0.3){
         if (xAxis<-0.3){
           xAxis=-0.3;
         }
@@ -137,7 +137,7 @@ public class DriveTrain extends SubsystemBase {
           }
           tankdrive(-xAxis, xAxis-0.05);
         }
-      }
+      }*/
     }
     else{
       if (yAxis>limit){
