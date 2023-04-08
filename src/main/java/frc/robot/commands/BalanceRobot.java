@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,10 +15,16 @@ public class BalanceRobot extends CommandBase {
   private final DriveTrain drivetrain;
   private final RobotGyro gyro;
   private double angle;
+  PIDController pidController;
+  double kp=0.01;
+  double ki=0;
+  double kd=0;
+  double speed=0;
   /** Creates a new BalanceRobot. */
   public BalanceRobot(DriveTrain subsystem, RobotGyro gyrosubsystem) {
     drivetrain=subsystem;
     gyro=gyrosubsystem;
+    pidController=new PIDController(kp, ki, kd);
     addRequirements(drivetrain,gyro);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -33,14 +40,16 @@ public class BalanceRobot extends CommandBase {
   @Override
   public void execute() {
     angle=gyro.getrobotAngle();
+    speed=pidController.calculate(angle);
+    System.out.println(angle);
     SmartDashboard.putNumber("Angle", angle);
     if (angle<-5){
-      drivetrain.tankdrive(-0.1, 0.1);
-      //angle=gyro.getrobotAngle();
+      drivetrain.tankdrive(-0.15, 0.15);
+      //drivetrain.tankdrive(speed,-speed);
     }
     else if (angle>5){
-      drivetrain.tankdrive(0.1, -0.1); 
-      //angle=gyro.getrobotAngle();
+      drivetrain.tankdrive(0.15, -0.15); 
+      //drivetrain.tankdrive(speed,-speed);
     }
   }
 

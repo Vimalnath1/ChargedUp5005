@@ -30,12 +30,12 @@ public class DefaultDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
-
+  
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
+  @Override 
   public void execute() {
-    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble(),0.3,turnvalue.getAsDouble(),straightvalue.getAsDouble());
-    //SmartDashboard.putNumber("Left Front Encoder", DriveTrain.leftEncoder1.getPosition());
+    drivetrain.turnanddrive(leftvalue.getAsDouble(), rightvalue.getAsDouble(),0.75,turnvalue.getAsDouble(),straightvalue.getAsDouble());
+    SmartDashboard.putNumber("Meow", rightvalue.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

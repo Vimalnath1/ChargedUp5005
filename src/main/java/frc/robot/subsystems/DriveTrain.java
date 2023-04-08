@@ -61,12 +61,13 @@ public class DriveTrain extends SubsystemBase {
   }
   public void turnanddrive(double xAxis, double yAxis,double limit, double creepturn, double creepstraight){
     if (RobotContainer.reverse==true){
-      creepspeed=-0.1;
+      creepspeed=-0.18;
       xAxis=xAxis*-1;
       yAxis=yAxis*-1;
     }
     else{
-      creepspeed=0.1;
+      creepspeed=-0.18;
+      
     }/*
       if (creepstraight==1){
       leftback.set(-creepspeed);
@@ -80,25 +81,25 @@ public class DriveTrain extends SubsystemBase {
         leftfront.set(creepspeed);
         rightfront.set(-creepspeed);
       }*/
-      if (creepturn>0.6){
-      leftfront.set(creepspeed);
-      leftback.set(creepspeed);
-      rightfront.set(creepspeed);
-      rightback.set(creepspeed);
+      if (creepturn>0.75){
+      leftfront.set(-creepspeed);
+      leftback.set(-creepspeed);
+      rightfront.set(-creepspeed);
+      rightback.set(-creepspeed);
       }
-      else if (creepturn<-0.6){
-        leftfront.set(-creepspeed);
-        leftback.set(-creepspeed);
-        rightfront.set(-creepspeed);
-        rightback.set(-creepspeed);
+      else if (creepturn<-0.75){
+        leftfront.set(creepspeed);
+        leftback.set(creepspeed);
+        rightfront.set(creepspeed);
+        rightback.set(creepspeed);
       }
-    if (creepturn<0.6 && creepturn>-0.6){
-    if (xAxis<-0.3 || xAxis>0.3 ){
+    if (creepturn<0.75 && creepturn>-0.75){
+    if (xAxis<-0.85 || xAxis>0.85 ){
       if (xAxis>0.3){
-        xAxis=0.3;
+        xAxis=0.4;
       }
       if (xAxis<-0.3){
-        xAxis=-0.3;
+        xAxis=-0.4;
       }
       leftfront.set(xAxis);
       leftback.set(xAxis);
@@ -196,30 +197,38 @@ public class DriveTrain extends SubsystemBase {
     //rightEncoder2.setPosition(0);
     double leftposition=0;
     double rightposition=0;
-    encoder1.setPositionConversionFactor((1/4096)*(1/8.46)*(6*Math.PI)*(1/12));
+    /*encoder1.setPositionConversionFactor((1/4096)*(1/8.46)*(6*Math.PI)*(1/12));
     encoder2.setPositionConversionFactor((1/4096)*(1/8.46)*(6*Math.PI)*(1/12));
     //SmartDashboard.putNumber("Left Encoder Position",leftposition);
     //double leftspeed=left2pidController.calculate(distance);
-    //double rightspeed=right2pidController.calculate(distance);
-    while (leftposition<distance && rightposition>-distance){
-      double leftspeed=0;
+    //double rightspeed=right2pidController.calculate(distance);*/
+    //while (leftposition<distance && rightposition>-distance){
+     /* double leftspeed=0;
       double rightspeed=0;
       leftspeed=left2pidController.calculate(distance-leftposition);
-      rightspeed=right2pidController.calculate(distance+rightposition);
+      rightspeed=right2pidController.calculate(distance+rightposition);*/
      
       leftposition=encoder1.getPosition();
       rightposition=encoder2.getPosition();
       System.out.println(rightposition);
       SmartDashboard.putNumber("Left Encoder Position",leftposition);
-      SmartDashboard.putNumber("Left Speed",leftspeed);
-      SmartDashboard.putNumber("Right Speed", rightspeed);
-      tankdrive(0.2, -0.2);
-    }
-    if (leftposition>distance && rightposition<-distance){
-      tankdrive(0, 0);
-      
-    }
-
+      /*SmartDashboard.putNumber("Left Speed",leftspeed);
+      SmartDashboard.putNumber("Right Speed", rightspeed);*/
+      if (distance>0){
+      tankdrive(0.3, -0.3);
+     // if (leftposition>(distance-0.1) && leftposition<(distance+0.1)){
+       if (leftposition>distance){
+        tankdrive(0, 0);
+      }
+      }
+      if (distance<0){
+        tankdrive(-0.3, 0.3);
+        //if (leftposition<(distance-0.1) && leftposition>(distance+0.1)){
+          if (leftposition<distance){
+          tankdrive(0, 0);
+        }
+      }
+    //}
   }
   @Override
   public void periodic() {

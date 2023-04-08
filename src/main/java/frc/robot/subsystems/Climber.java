@@ -20,7 +20,7 @@ public class Climber extends SubsystemBase {
   public Climber() {
     climbermotor=new CANSparkMax(Constants.climbermotornumber,MotorType.kBrushless);
     toplimitswitch=new DigitalInput(0);
-    bottomlimitswitch=new DigitalInput(1);
+    bottomlimitswitch=new DigitalInput(2);
     //climberEncoder=climbermotor.getEncoder();
   }
 
@@ -30,21 +30,30 @@ public class Climber extends SubsystemBase {
   }
 
   public void climb(double speed){
+    //System.out.println(bottomlimitswitch.get());
+    //climbermotor.set(speed);
+  
     if (toplimitswitch.get()==false && bottomlimitswitch.get()==false){
     climbermotor.set(speed);
-    System.out.println(toplimitswitch.get());
+    //System.out.println("no");
+    //System.out.println(toplimitswitch.get());
     }
     else if (toplimitswitch.get()==true){
       if (speed<0){
         speed=0;
       }
       climbermotor.set(speed);
+      //System.out.println(toplimitswitch.get());
+      //System.out.println("top");
+    //System.out.println(toplimitswitch.get());
     }
-    else{
+    else if (bottomlimitswitch.get()==true){
       if (speed>0){
         speed=0;
       }
       climbermotor.set(speed);
     }
+    //System.out.println("bottom");
+    //System.out.println(bottomlimitswitch.get());
   }
 }
